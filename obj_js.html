@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			
+		<style>
+			body{
+				font-family: Arial;
+				background: #222;
+				color: white;
+				text-align: center;
+
+			}
+			.game-box{
+				background: #333;
+				width: 300px;
+				padding: 20px;
+				margin: 50px auto;
+				border-radius: 10px;
+			}
+
+			button {
+
+padding: 12px;
+
+width: 100%;
+
+margin-top: 10px;
+
+background: crimson;
+
+border: none;
+
+color: white;
+
+font-size: 16px;
+
+cursor: pointer;
+
+}
+
+button:hover {
+
+background: darkred;
+
+}
+		</style>
+				</head>
+	<body>
+		<div class="game-box">
+			<h2> 🧟 Enemy </h2>
+			<p id="health"> Health : 100</p>
+			<p id="score"> Score :0</p> 
+
+			<button onclick="game.attck()">Attack </button>
+			<button onclick="game.reset()">Reset </button>
+		</div>
+
+
+
+		<script>
+				const game={
+					enemyHealth : 100,
+					score: 0,
+
+
+					attck: function(){
+
+						if(this.enemyHealth > 0)
+						{
+							this.enemyHealth-=10;
+							this.score+=10;
+						
+
+						document.getElementById("health").innerText = "EnemyHealth" + this.enemyHealth;
+						document.getElementById("score").innerText = "Score" + this.score;
+
+
+						if(this.enemyHealth===0)
+						{
+							alert("Enemy Defeated ");
+						}
+
+					}
+
+				},
+
+					reset: function(){
+
+						document.getElementById("health").innerText= "Health: 100";
+						document.getElementById("score").innerText= "Score: 0";
+						
+					}
+				};
+
+
+			</script>
+
+	</body>
+	</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Html Dom in Javascript</title>
+	<style>
+
+body {
+
+font-family: Arial, sans-serif;
+
+background: #f2f2f2;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+height: 100vh;
+
+}
+
+.card {
+
+background: white;
+
+padding: 25px;
+
+border-radius: 12px;
+
+width: 300px;
+
+text-align: center;
+
+box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+}
+
+.happy {
+
+background-color: #d4f8d4;
+
+}
+
+.sad {
+
+background-color: #f8d4d4;
+
+}
+
+button {
+
+margin: 8px;
+
+padding: 10px 15px;
+
+border: none;
+
+border-radius: 6px;
+
+cursor: pointer;
+
+font-size: 14px;
+
+}
+
+.happy-btn {
+
+background: #4CAF50;
+
+color: white;
+
+}
+
+.sad-btn {
+
+background: #f44336;
+
+color: white;
+
+}
+
+.reset-btn {
+
+background: #555;
+
+color: white;
+
+}
+
+</style>
+</head>
+<body> 
+
+	<div class="card" id="Moodcard">
+		<h2 id="title">How are you feeling today? </h2>
+		<p id="message"> Click a button to change your mood </p>
+
+		<button class="happy-btn" id="happyBtn">😃 Happy </button>
+		<button class="sad-btn" id="sadBtn"> Sad </button>
+		<button class="reset-btn" id="resetBtn"> Reset Button</button>
+
+	</div>
+
+
+	<script>
+			
+		const card = document.getElementById("Moodcard");
+		const message = document.getElementById("message");
+
+		document.getElementById("happyBtn").
+			addEventListener("click", function() {
+				card.classList.remove("sad");
+				card.classList.add("happy");
+				message.innerText="Yay Keep feeling good";
+			});
+
+		document.getElementById("sadBtn").
+			addEventListener("click" ,function() {
+				card.classList.remove("happy");
+				card.classList.add("sad");
+				message.innerText="It is okay to feel sad";
+			});	
+
+		document.getElementById("resetBtn").
+			addEventListener("click" ,function() {
+				card.classList.remove("happy","sad");
+				message.innerText="Click a button to set your mood ";
+			});	
+	</script>
+
+</body>
+</html>

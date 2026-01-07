@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Brief on Javascript</title>
+
+	<style>
+
+body {
+
+font-family: Arial, sans-serif;
+
+background: #f4f6f8;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+height: 100vh;
+
+}
+
+.bank {
+
+background: white;
+
+padding: 20px;
+
+width: 320px;
+
+border-radius: 10px;
+
+box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+text-align: center;
+
+}
+
+h2 {
+
+margin-bottom: 10px;
+
+}
+
+input {
+
+width: 90%;
+
+padding: 8px;
+
+margin: 5px 0;
+
+}
+
+button {
+
+width: 95%;
+
+padding: 10px;
+
+margin: 5px 0;
+
+background: #007bff;
+
+color: white;
+
+border: none;
+
+border-radius: 5px;
+
+cursor: pointer;
+
+}
+
+button:hover {
+
+background: #0056b3;
+
+}
+
+.output {
+
+margin-top: 10px;
+
+text-align: left;
+
+font-size: 14px;
+
+white-space: pre-line;
+
+}
+
+</style>
+</head>
+
+<body>
+
+	<div class="bank">
+		<h2> Bank System </h2>
+		<p><strong>Balance :</strong> $ <span id="balance">5000</span></p>
+
+		<input type="number" id="amount" placeholder="Enter Amount"> 
+
+			<button onclick="handleAction(1)">Check balance</button>
+			<button onclick="handleAction(2)">Deposit</button>
+			<button onclick="handleAction(3)">Withdraw</button>
+			<button onclick="handleAction(4)">Transictions </button>
+
+			<div class="output" id="output"></div>
+		</div>
+
+
+
+	<script>
+		
+		let bankAccount = {
+			name : "Hyper",
+			balance: 5000,
+			transactions : [],
+
+
+			checkBalance : function (amount) {
+				return "Current Balance $ " + this.balance;
+			},
+			deposit : function (amount) {
+				
+				if(amount > 0){
+					this.balance += amount;
+					this.transactions.push("Deposited $ " + amount);
+
+				return "Deposited Succesful!";
+
+			}
+				return "Invalid Deposit Amount";
+		},
+		withdraw : function(amount) {
+			if(amount <= this.balance && amount > 0){
+				this.balance -= amount;
+				this.transactions.push("withdrawn $ " + amount);
+				return "Withdrawl Succesful" ;
+		}
+
+		return "Insufficient Balance or Invalid Amount";
+	},
+		showTransactions : function () {
+			
+			if(this.transactions.length === 0){
+				return "No transactions Available ";
+			}
+
+			let history = "Transactions History \n";
+			for(let i=0;i<this.transactions.length;i++){
+				history += (i+1) + ". " + this.transactions[i] + "\n" ;
+
+
+			}
+
+			return history;
+		}
+		};
+
+		function handleAction(choice) {
+			// body...
+
+			let amount = Number(document.getElementById("amount").value);
+
+			let output = " ";
+
+			switch(choice){
+
+				case 1:
+					output= bankAccount.checkBalance();
+					break;
+				case 2:
+					output= bankAccount.deposit(amount);
+					break;
+				case 3:
+					output= bankAccount.withdraw(amount);
+					break;	
+				case 4:
+					output= bankAccount.showTransactions();
+					break;		
+			}
+
+			document.getElementById("balance").innerText= bankAccount.balance;
+			document.getElementById("output").innerText = output;
+			document.getElementById("amount").value =  " ";
+		}
+
+
+
+
+	</script>
+
+</body>
+</html>

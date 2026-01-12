@@ -1,0 +1,66 @@
+<DOCTYPE html>
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Classes IN js</title>
+
+		<style>
+
+	body { font-family: Arial; background: #f2f2f2; padding: 20px; }
+
+	.box { background: white; padding: 20px; width: 300px; }
+
+	button { margin-top: 10px; padding: 6px 12px; }
+
+</style>
+
+	</head>
+	<body>
+	
+		<div class="box">
+			<h3>Ticket Managemnt System</h3>
+
+			<input type="text" id="name" placeholder="Enter Your Name"> 
+			<br><br>
+
+			<select id="type">
+				<option value="Normal">Normal</option>
+				<option value="VIP">VIP</option>
+			</select><br><br>
+
+			<button onclick="BookTicket()">Book</button>
+
+			<p id="output"></p>
+		</div>
+
+		<script>
+				
+				class Ticket {
+					constructor (name,type){
+						this.name = name;
+						this.type = type;
+
+									}
+
+					getPrice(){
+						return this.type === "VIP" ? 500:200;
+					}
+
+
+				}
+
+				function BookTicket() {
+					let name = document.getElementById("name").value;
+					let type = document.getElementById("type").value;
+
+					let ticket1 = new Ticket(name,type);
+
+					document.getElementById("output").innerHTML = "Name :" + ticket1.name + "<br> " +  "Ticket Type " + ticket1.type + "<br>" + "Price $" + ticket1.getPrice() ; 
+				}
+
+		</script>
+
+	</body>
+	</html>

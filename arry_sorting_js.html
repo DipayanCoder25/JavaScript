@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Array Sorting In JS</title>
+</head>
+<body>
+
+	<h2>Array Sorting</h2>
+	<p>Original Marks</p>
+	<div id="original" class="box"></div>
+
+	
+
+	<button onclick="addBonus()">Add 5+ Bonus</button>
+	<button onclick="sortAsc()">Sort Asencding</button>
+	<button onclick="sortDesc()">Sort Decending</button>
+
+	<button onclick="MyFunction()">Try it</button>
+	<p id="result1"> </p>
+
+	<p>Result: </p>
+	<div id="result" class="box"></div>
+<script>
+		
+		let marks = [45,64,15,85,32,73];
+
+		document.getElementById("original").innerText=  marks.join(", ");
+
+		function addBonus(){
+
+			let updated = marks.map(m => m+5);
+			document.getElementById("result").innerText = updated.join(", ");
+		}
+		function sortAsc(){
+
+			let sorted = [...marks].sort((a,b) => a-b );
+			document.getElementById("result").innerText = sorted.join(", ");
+		}
+
+		function sortDesc(){
+
+			let sorted = [...marks].sort((a,b) =>  b - a );
+			document.getElementById("result").innerText = sorted.join(", ");
+		}
+
+		function MyFunction(){
+		var x=10;
+		var y=20;
+		var a = eval("x + y") ;
+		document.write("<br>");
+		var b = eval("x - y") ;
+		var c = eval("2 * 2") ;
+
+		var res = a+b+c;
+		document.getElementById("result1").innerHTML = res;
+
+		}
+
+</script>
+
+</body>
+</html>

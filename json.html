@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JSON and JS Asynchronous</title>
+	<style>
+	body {
+
+font-family: Arial, sans-serif;
+
+background: #f2f4f7;
+
+}
+
+.container {
+
+width: 400px;
+
+margin: 60px auto;
+
+padding: 20px;
+
+background: white;
+
+border-radius: 8px;
+
+text-align: center;
+
+}
+
+button {
+
+padding: 10px 15px;
+
+background: #4CAF50;
+
+color: white;
+
+border: none;
+
+border-radius: 5px;
+
+cursor: pointer;
+
+}
+
+button:hover {
+
+background: #45a049;
+
+}
+
+.user {
+
+background: #eef;
+
+margin: 10px;
+
+padding: 8px;
+
+border-radius: 5px;
+
+}
+
+</style>
+</head>
+<body>
+
+			<div class="container">
+				<h2>User Dictionary</h2>
+				<button onclick="loadUser()">Load User</button>
+				<div id="output"></div>
+			</div>
+
+		<script>
+					
+				const userJSON = [
+					{"name":"Ayesha", "age":12},
+					{"name":"Rahim", "age":25},
+					{"name":"Karim", "age":28}
+				];
+
+
+				function fecthUsers(){
+					return new Promise((resolve,reject)=>{
+						setTimeout(() => {
+							resolve(userJSON);
+						},2000);
+
+					});
+				}
+
+				async function loadUser() {
+					// body...
+					const output = document.getElementById("output");
+					output.innerHTML = "Loading ";
+
+					try{
+						const users = await fecthUsers();
+
+						output.innerHTML = "";
+						users.forEach(user =>{
+							output.innerHTML +=`
+								<div class=user>
+									<strong>Name:</strong> ${user.name} <br>
+									<strong>Age:</strong> ${user.age} <br>
+								</div>
+
+							`;
+							});
+					}catch(error){
+						output.innerHTML = "Failed to load user";
+					}
+
+				}
+		</script>
+</body>
+</html>

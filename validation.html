@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Validation JS</title>
+	<style>
+
+body {
+
+font-family: Arial, sans-serif;
+
+background: #f4f6f8;
+
+padding: 40px;
+
+}
+
+form {
+
+background: white;
+
+padding: 20px;
+
+width: 300px;
+
+border-radius: 8px;
+
+}
+
+input {
+
+width: 100%;
+
+padding: 8px;
+
+margin-top: 10px;
+
+}
+
+span {
+
+color: red;
+
+font-size: 12px;
+
+}
+
+button {
+
+margin-top: 15px;
+
+padding: 10px;
+
+width: 100%;
+
+background: #4CAF50;
+
+color: white;
+
+border: none;
+
+cursor: pointer;
+
+}
+
+pre {
+
+background: #222;
+
+color: #0f0;
+
+padding: 15px;
+
+margin-top: 20px;
+
+}
+
+</style>
+</head>
+<body>
+
+		<h2>User Registration</h2>
+
+		<form id="userForm">
+			<input type="text" placeholder="Enter your Name" id="name">
+				<span id="NameError"></span>
+
+			<input type="email" placeholder="Enter your Email here" id="email">
+			<span id="EmailError"></span>
+
+			<input type="age" placeholder="Enter your age here" id="age">
+			<span id="AgeError"></span>
+
+			<button type="submit">Submit</button>
+
+			</form>
+
+			<pre id="output"></pre>
+
+			<script>
+
+				const NameInput = document.getElementById("name");
+				const EmailInput = document.getElementById("email");
+				const AgeInput = document.getElementById("age");
+
+
+				const NameError = document.getElementById("NameError");
+				const EmailError = document.getElementById("EmailError");
+				const AgeError = document.getElementById("AgeError");
+
+				const output = document.getElementById("output");
+
+				NameInput.addEventListener("input", () =>{
+					if(NameInput.value.length < 3){
+						NameError.textContent = "Name must be grater than 3 letters";
+						}
+					else{
+						NameError.textContent = " ";
+						}
+				});
+
+				AgeInput.addEventListener("input", () =>{
+					if(NameInput.value.length < 18){
+						AgeError.textContent = "Your Age  must be grater than 18";
+						}
+					else{
+						AgeError.textContent = " ";
+						}
+				});
+
+				EmailInput.addEventListener("input", () =>{
+					if(!EmailInput.value.includes("@")){
+						EmailError.textContent = "Invalid Email Format";
+						}
+					else{
+						EmailError.textContent = " ";
+						}
+				});
+
+				document.getElementById("userForm").addEventListener("submit" ,(e) =>{
+					e.preventDefault();
+
+					if(!NameError.textContent || EmailError.textContent || AgeError.textContent){
+						alert("Please fix errors before submiting");
+						return;
+					}
+
+					const UserData = {
+						name: NameInput.value,
+						email: EmailInput.value,
+						age: AgeInput.value
+					};
+
+					output.textContent = JSON.stringify(UserData,null,2);
+				});
+
+
+	</script>
+</body>
+</html>

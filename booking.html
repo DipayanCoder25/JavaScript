@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style>
+
+body {
+
+font-family: Arial, sans-serif;
+
+background: linear-gradient(to right, #74ebd5, #acb6e5);
+
+}
+
+.container {
+
+width: 420px;
+
+margin: 30px auto;
+
+background: white;
+
+padding: 20px;
+
+border-radius: 12px;
+
+box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+}
+
+h1, h2 {
+
+text-align: center;
+
+}
+
+.form-box label {
+
+display: block;
+
+margin-top: 10px;
+
+font-weight: bold;
+
+}
+
+.form-box select, input {
+
+width: 100%;
+
+padding: 8px;
+
+margin-top: 5px;
+
+}
+
+button {
+
+width: 100%;
+
+margin-top: 15px;
+
+padding: 10px;
+
+background: #1e90ff;
+
+color: white;
+
+border: none;
+
+font-size: 16px;
+
+cursor: pointer;
+
+border-radius: 6px;
+
+}
+
+button:hover {
+
+background: #006ad1;
+
+}
+
+.result {
+
+margin-top: 15px;
+
+padding: 10px;
+
+background: #f4f6f8;
+
+border-radius: 6px;
+
+}
+
+ul {
+
+padding-left: 20px;
+
+}
+
+</style>
+</head>
+<body>
+
+	<div class="container">
+		<h1> SKyline Airline Booking</h1>
+
+		<div class="form-box">
+			<label>Form</label>
+			<select id="from">
+				<option value="">Select City</option>
+				<option >Dhaka</option>
+				<option >Chittagong</option>
+				<option >Sylhet</option>
+				<option >Cox's Bazar</option>
+			</select>
+
+			<label>TO</label>
+			<select id="to">
+				<option value="">Select City</option>
+				<option >Dhaka</option>
+				<option >Chittagong</option>
+				<option >Sylhet</option>
+				<option >Cox's Bazar</option>
+			</select>
+
+			<label>Jounney Date</label>
+			<input type="date" id="date">
+
+			<label>Passengers</label>
+			<input type="number" id="passengers" value="1" min="1">
+
+			<label>Class</label>
+			<select id="class">
+				<option value="1">Economy</option>
+				<option value="1.5">Bussiness</option>
+				<option value="2">First Class</option>
+			</select>
+
+			<button onclick="BookTicket()">Book Ticket</button>
+	</div>
+
+		<div class="result" id="result"></div>
+
+		<h2>Booking History</h2>
+		<ul id="history"></ul>
+	</div>
+
+	<script>
+		
+		const prices = {
+			"Dhaka-Chittagong": 4500,
+			"Dhaka-Sylhet": 5000,
+			"Dhaka-Cox's Bazar": 8000,
+			"Chittagong-Sylhet": 5500,
+			"Chittagong-Cox's Bazar": 7000,
+			"Sylhet-Cox's Bazar": 6500
+		};
+
+		function BookTicket(){
+			const from = document.getElementById("from").value;
+			const to = document.getElementById("to").value;
+			const date = document.getElementById("date").value; 
+			const passengers = document.getElementById("passengers").value;
+			const seatclass = document.getElementById("class").value;
+
+			if(!from || !to || !date || from === to)
+			{
+				alert("Please select valid route and date!");
+				return;
+			}
+
+			const routeKey = `${from}-${to}` in prices
+			 ? `${from}-${to}`
+			 : `${to}-${from}`;
+
+			 const basePrice = prices[routeKey];
+			 const totalCost = basePrice * passengers * seatclass;
+
+			 const booking = {
+			 	from , to , date, passengers,
+			 	cost: totalCost
+			 };
+
+
+			 saveBooking(booking);
+			 showResult(booking);
+			 loadHistory();
+
+			}
+
+			 function showResult(booking){
+			 	document.getElementById("result").innerHTML = `
+			 		<strong>Booking Confirmed</strong> <br>
+			 		Route: ${booking.from} - ${booking.to}<br>
+			 		Date: ${booking.date}<br>
+			 		Passengers: ${booking.passengers}<br>
+			 		Total Cost : ${booking.cost}
+			 	`;
+			 }
+
+			 function saveBooking(booking) {
+			 	let history = JSON.parse(localStorage.getItem("booking")) || [];
+			 	history.push(booking);
+			 	localStorage.setItem("bookings",JSON.stringify(history));
+			 }	
+
+
+			 	function loadHistory() {
+			 	const history = JSON.parse(localStorage.getItem("booking")) || [];
+			 	const list = document.getElementById("history");
+				 list.innerHTML="";
+
+				history.forEach((b , i) => {
+					list.innerHTML += `
+						<li>
+							${i+1}. ${b.from} - ${b.to}  | ${b.date} | ${b.cost}
+						</li>
+						`;
+				});
+			 }	
+			  
+
+loadHistory();
+			
+</script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+		<tittle> </tittle>
+<style>
+body{
+font-family: Arial;
+
+text-align: center;
+
+background: linear-gradient(to right,#d4fc79,#96e6a1);
+
+}
+
+.products {
+
+display: flex;
+
+flex-wrap: wrap;
+
+justify-content: center;
+
+}
+
+.card {
+
+background: white;
+
+margin: 10px;
+
+padding: 10px;
+
+width: 150px;
+
+border-radius: 8px;
+
+box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+
+}
+
+button {
+
+padding: 8px;
+
+margin: 5px;
+
+cursor: pointer;
+
+}
+
+.popup {
+
+display: none;
+
+position: fixed;
+
+width: 100%;
+
+height: 100%;
+
+background: rgba(0,0,0,0.6);
+
+top: 0;
+
+}
+
+.popup-content {
+
+background: white;
+
+width: 300px;
+
+margin: 100px auto;
+
+padding: 20px;
+
+border-radius: 10px;
+
+}
+</style>
+	</head>
+
+<body>
+
+
+	<h1>Smart E-Store </h1>
+
+	<button onclick="openLogin()">Login/ Register</button>
+	<div class="categories">
+		<button onclick="fliterProducts('all')">All</button>
+		<button onclick="fliterProducts('vegetable')">Vegetables</button>
+		<button onclick="fliterProducts('fruit')">Fruits</button>
+		<button onclick="fliterProducts('seed')">Seeds</button>
+	</div>
+
+	<div id="products" class="products"></div>
+
+	<h2> Cart Total: <span id="total">0</span></h2>
+	<button onclick="checkout()">Proceed to Pay</button>
+
+<hr>
+	
+	<div id="popup" class="popup">
+		<div class="popup-content">
+			<h2>User Login</h2>
+			<input id="user" placeholder="Username">
+			<input id="pass" type="password" placeholder="Passoword">
+			<button onclick="login()">Login</button>
+			<button onclick="register()">Register</button>
+			<button onclick="closeLogin()">Close</button>
+			<p id="msg"></p>
+		</div>
+	</div>
+
+	<script>
+
+		const data = [
+			{name:"Tomato",price:40,type:"vegetable"},
+			{name:"Potato",price:30,type:"vegetable"},
+			{name:"Apple",price:120,type:"fruit"},
+			{name:"Banana",price:60,type:"fruit"},
+			{name:"Carrot Seed",price:200,type:"seed"},
+			{name:"Spainch Seed",price:150,type:"seed"}
+		];
+
+		let cartTotal = 0;
+
+		function loadProducts(list)
+{
+	products.innerHTML = "";
+	list.forEach(p => {
+		products.innerHTML += `
+			<div class="card">
+				<h3>${p.name}</h3>
+				<p>${p.price}</p>
+				<button onclick="addToCart(${p.price})">ADD</button>
+		`;
+	});
+}
+
+loadProducts(data);
+
+
+function fliterProducts(category){
+	if(category === "all") return loadProducts(data);
+	loadProducts(data.filter(p => p.type === category));
+}
+
+function addToCart(price) {
+	cartTotal += price;
+	total.innerText = cartTotal;
+}
+
+function checkout(){
+	if(cartTotal === 0) return alert("Cart is Empty!");
+	const confirmPay = confirm(`Pay ${cartTotal} `);
+	if(confirmPay){
+		alert("Payment Succesful!");
+		cartTotal = 0;
+		total.innerText = 0;
+	}
+}
+
+function openLogin() {popup.style.display = "block";}
+function closeLogin() {popup.style.display = "none";}
+
+function register(){
+	localStorage.setItem(user.value, pass.value);
+	msg.innerText = "Registered ";
+}
+
+function login(){
+	if(localStorage.getItem(user.value) === pass.value){
+		msg.innerText = "Login Success";
+		closeLogin();
+	}
+	else{
+		msg.innerText = "Invalid";
+	}
+}
+
+				</script>
+
+	</body>
+	</head>
